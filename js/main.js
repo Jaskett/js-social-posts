@@ -74,7 +74,7 @@ for(let i = 0; i < posts.length; i++) {
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${posts[i].author.name}</div>
-                <div class="post-meta__time">${posts[i].created}</div>
+                <div class="post-meta__time">${italianDate(posts[i].created)}</div>
             </div>                    
         </div>
     </div>
@@ -85,7 +85,7 @@ for(let i = 0; i < posts.length; i++) {
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="${posts[i].id}">
+                <a class="like-button  js-like-button" href="#!" data-postid="${posts[i].id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -112,3 +112,16 @@ function likeFunction() {
 }
 
 const arrPostsLiked = [];
+
+
+
+function italianDate(toFormat) {
+    // let date = toFormat.split(/\D/g);
+    // return[date[2], date[1], date[0]].join("-");
+
+    let date = '';
+    for(let i = 0; i < posts.length; i++) {
+        date = toFormat.split('-').reverse().join().replaceAll(',','-');
+    }
+    return date;
+}
