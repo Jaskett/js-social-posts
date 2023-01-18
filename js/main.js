@@ -60,6 +60,8 @@ console.log(posts);
 
 const postsContainer = document.querySelector('.posts-list');
 
+const arrPostsLiked = [];
+
 for(let i = 0; i < posts.length; i++) {
     const newDiv = document.createElement('div');
     newDiv.classList.add('post');
@@ -96,23 +98,27 @@ for(let i = 0; i < posts.length; i++) {
         </div> 
     </div>
     `
+    controlProfilePicture(i);
+}
 
+eventListenerCreation();
+
+function controlProfilePicture(i) {
     if(posts[i].author.image == null) {
         const eleProfileImage = document.querySelectorAll('.profile-pic');
         eleProfileImage[i].classList.add('profile-pic-default');
-        const surnameIndex = posts[i].author.name.lastIndexOf(' ') + 1;
-        const initials = posts[i].author.name[0] + posts[i].author.name[surnameIndex];
+        const surnameInitialIndex = posts[i].author.name.indexOf(' ') + 1;
+        const initials = posts[i].author.name[0] + posts[i].author.name[surnameInitialIndex];
         eleProfileImage[i].attributes.alt.value = initials;
     }
-    console.log(posts[i].author.image);
 }
 
-for(let i = 0; i < posts.length; i++) {
-    const likeBtn = document.querySelector(`[data-postid="${posts[i].id}"]`);
-    likeBtn.addEventListener('click', likeFunction);
+function eventListenerCreation() {
+    for(let i = 0; i < posts.length; i++) {
+        const likeBtn = document.querySelector(`[data-postid="${posts[i].id}"]`);
+        likeBtn.addEventListener('click', likeFunction);
+    }
 }
-
-const arrPostsLiked = [];
 
 function likeFunction() {
     if(this.classList.contains('like-button--liked')) {
