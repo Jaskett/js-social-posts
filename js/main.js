@@ -96,6 +96,15 @@ for(let i = 0; i < posts.length; i++) {
         </div> 
     </div>
     `
+
+    if(posts[i].author.image == null) {
+        const eleProfileImage = document.querySelectorAll('.profile-pic');
+        eleProfileImage[i].classList.add('profile-pic-default');
+        const surnameIndex = posts[i].author.name.lastIndexOf(' ') + 1;
+        const initials = posts[i].author.name[0] + posts[i].author.name[surnameIndex];
+        eleProfileImage[i].attributes.alt.value = initials;
+    }
+    console.log(posts[i].author.image);
 }
 
 for(let i = 0; i < posts.length; i++) {
@@ -103,17 +112,25 @@ for(let i = 0; i < posts.length; i++) {
     likeBtn.addEventListener('click', likeFunction);
 }
 
-function likeFunction() {
-    this.classList.add('like-button--liked');
-    const eleLikesCount = document.querySelectorAll('.js-likes-counter');
-    const index = this.attributes['data-postid'].value - 1;
-    eleLikesCount[index].innerHTML = posts[index].likes += 1;
-    arrPostsLiked.push(posts[index].id);
-}
-
 const arrPostsLiked = [];
 
-
+function likeFunction() {
+    if(this.classList.contains('like-button--liked')) {
+        this.classList.remove('like-button--liked'); // Decoloro il tasto premuto
+        const eleLikesCount = document.querySelectorAll('.js-likes-counter');
+        const index = this.attributes['data-postid'].value - 1; // Ottengo l'index del post
+        eleLikesCount[index].innerHTML = posts[index].likes -= 1; // Decremento il numero dei like
+        const indexID = arrPostsLiked.indexOf(posts[index].id); // Ottengo l'index dell'ID nell'array in console
+        arrPostsLiked.splice(indexID, 1); // Rimuovo l'id dall'array dei likes in console
+    } else {
+        this.classList.add('like-button--liked'); // Coloro il tasto premuto
+        const eleLikesCount = document.querySelectorAll('.js-likes-counter');
+        const index = this.attributes['data-postid'].value - 1; // Ottengo l'index del post
+        eleLikesCount[index].innerHTML = posts[index].likes += 1; // Aumento il numero dei like
+        arrPostsLiked.push(posts[index].id); // Aggiungo ID post piaciuto all'interno dell'array apposito in console
+    }
+    console.log(arrPostsLiked);
+}
 
 function italianDate(toFormat) {
     // let date = toFormat.split(/\D/g);
