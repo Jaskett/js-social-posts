@@ -144,7 +144,7 @@ function italianDate(toFormat) {
 
     let date = '';
     for(let i = 0; i < posts.length; i++) {
-        date = toFormat.split('-').reverse().join().replaceAll(',','-');
+        date = toFormat.split('-').reverse().join().replaceAll(',','/');
     }
     return date;
 }
